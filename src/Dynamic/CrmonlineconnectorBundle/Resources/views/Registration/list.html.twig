@@ -1,0 +1,64 @@
+{% block stylesheets %}   
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+{% endblock %}
+{% block content %}       
+ <title>{% block title %}Newsletter List{% endblock %}</title> 
+ <br>     
+ <div class="addlisting" style="margin-left:110px;">      
+      <button type="button" class="btn btn-primary">     
+      <a href="{{ path('registrationpage')}}" style="color:white;">Add Newsletter</a>
+      </button> 
+ </div> 
+<div class="container">   
+<h2>All Newsletters</h2>    
+<div class="row content"> 
+  <div class="col-sm-10">   
+ <table class="table table-condensed"> 
+    <thead> 
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Unsubscribe</th> 
+        <th>Createdon</th>
+        <th>Action</th   
+      </tr>  
+    </thead> 
+    <tbody>  
+     
+    {% for newsletter in newsletters %}   
+        <tr> 
+            <td>
+                <h5>{{newsletter.name}}</h5>   
+            </td>
+            <td>
+                <h5>{{newsletter.email}}</h5>   
+            </td>
+            <td>
+                <h5>{{newsletter.unsubscribe}}</h5>   
+            </td> 
+            <td> 
+                <h5>{{newsletter.createdon|date("Y/m/d H:i:s")}}</h5>   
+            </td>  
+            <td>
+                <h5> <a class="btn-link" style="text-decoration: none" href="{{ path('editpage', {'id': newsletter.id }) }}">Edit</a> </h5>      
+            </td> 
+            <td>
+                <h5> <a class="btn-link" style="text-decoration: none" href="{{ path('deletepage', {'id': newsletter.id }) }}">Delete</a>   </h5>   
+            </td> 
+        </tr>             
+        {% endfor %}
+            </tbody> 
+    </table> 
+    </tbody>      
+ </table>       
+  </div> 
+         
+ </div>   
+</div>           
+  <br> 
+ <div class="addlisting" style="margin-left:110px;">      
+      <button type="button" class="btn btn-primary">     
+      <a href="{{ path('registrationpage')}}" style="color:white;">Add Newsletter</a>
+      </button> 
+ </div>  
+{% endblock %}           

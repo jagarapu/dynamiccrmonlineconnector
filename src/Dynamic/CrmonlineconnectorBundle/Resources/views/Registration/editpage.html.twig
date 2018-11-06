@@ -1,0 +1,76 @@
+{% block stylesheets %}   
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+{% endblock %}
+
+{% block content %}
+    
+    <div class="container">
+          <style>
+            .error-message{
+                color: red;
+            }
+            .large_text {
+                width: 250px;
+            }
+        </style>   
+        <title>{% block title %}Registration Form{% endblock %}</title>
+    <div class="container">
+        {{ form_start(form, {'method': 'post', 'action': path('editpage', {'id': id }), 'attr': {'class': 'editpage','novalidate': 'novalidate'}}) }}
+        <div class="row"> 
+        <div class="col-sm-6"> 
+            <h3> Registration&nbsp;Form</h3>
+        </div>
+        <div class="col-sm-6">
+            <br> <h5> <a href="{{ path('listpage')}}">Newsletter List Page</a></h5>
+        </div>                                                       
+         </div>  
+         <br>   
+        <div class="row">
+            <div class="col-sm-2">{{ form_label(form.name) }}</div>
+            <div class="col-sm-3">{{ form_widget(form.name) }}</div>
+            <div class="col-sm-4">{{ form_errors(form.name) }}</div>  
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-2">{{ form_label(form.email) }}</div>  
+            <div class="col-sm-3">{{ form_widget(form.email) }}</div>
+            <div class="col-sm-4">{{ form_errors(form.email) }}</div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-2">{{ form_label(form.unsubscribe) }}</div>
+            <div class="col-sm-3">{{ form_widget(form.unsubscribe) }}</div>
+            <div class="col-sm-4">{{ form_errors(form.unsubscribe) }}</div>
+        </div> 
+        <br>
+        <div class="row">
+            <div class="col-sm-2">{{ form_label(form.createdon) }}</div>
+            <div class="col-sm-3">{{ form_widget(form.createdon) }}</div>  
+            <div class="col-sm-4">{{ form_errors(form.createdon) }}</div>
+        </div> 
+        <br>     
+       {# <div class="row">   
+            <div class="col-sm-2">{{ form_label(form.plainPassword.first) }}</div>
+            <div class="col-sm-2">{{ form_widget(form.plainPassword.first) }}</div>
+            <div class="col-sm-4">{{ form_errors(form.plainPassword.first) }}</div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-2">{{ form_label(form.plainPassword.second) }}</div>
+            <div class="col-sm-2">{{ form_widget(form.plainPassword.second) }}</div>
+            <div class="col-sm-4">{{ form_errors(form.plainPassword.second) }}</div>
+        </div>#}
+        <br>
+        <br>
+        <div class="row">  
+            <div class="col-sm-2 col-sm-offset-2"> <input type="submit" name="submit" value="Register" class="btn btn-primary"/></div>
+            <div class="col-sm-2"></div>
+        </div>  
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+{% endblock %}

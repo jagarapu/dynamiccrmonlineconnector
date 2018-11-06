@@ -1,0 +1,20 @@
+parameters:
+    crmclient.class : Dynamic\CrmonlineconnectorBundle\CrmClient\DynamicCrmClient
+    postpersist.class : Dynamic\CrmonlineconnectorBundle\Listener\PostPersistListener
+#    rabbitconsumer.class : Dynamic\CrmonlineconnectorBundle\Library\ConsumerService
+               
+services:
+    crmclient_utility:
+        class:        %crmclient.class%
+        arguments : ['@service_container','@buzz']
+        
+    post_persist_listener:
+        class: %postpersist.class%
+        tags:
+            - { name: doctrine.event_listener, event: postPersist, connection: default }
+        arguments: [ '@service_container','@logger']    
+    
+#    upload_picture_service:
+#        class:        %rabbitconsumer.class%
+#        arguments : ['@service_container','@doctrine.orm.entity_manager','@logger']  
+        
