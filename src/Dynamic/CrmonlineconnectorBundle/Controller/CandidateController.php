@@ -132,24 +132,29 @@ class CandidateController extends Controller{
     public function connectcrmAction(Request $request){
         $em = $this->getDoctrine()->getManager();
         //There will be newsletter id sent for this method, so retrieve it
-        $newsletterid = 1;
+//        $newsletterid = 1;
         $crmclient = $this->container->get('crmclient_utility');
-        $crmclient->constructDynamics();
+//        $crmclient->constructDynamics();
         $crmclient->doOCPAuthentication();
-        //Pass the action for the crm record
-        $soapheader = $crmclient->getCRMSoapHeader('Create');
-        $newsletter = $em->getRepository('DynamicCrmonlineconnectorBundle:Newsletter', $newsletterid);
-        $soapbody = $crmclient->getSoapCreateNewsletterBody($newsletter);
-        $serverResponse = $crmclient->sendQuery($soapheader, $soapbody);
-
-        //Retrieve response and update the crm record
-        $iscrmrecord = $crmclient->isCrmRecordCreated($serverResponse);
-
-        if ($iscrmrecord) {
-            return new Response('Success');
-        } else {
-            return FALSE;
-        }
+        return new Response(
+            'Dynamic crm Connected Successfully...'
+        );
+        
+//        
+//        //Pass the action for the crm record
+//        $soapheader = $crmclient->getCRMSoapHeader('Create');
+//        $newsletter = $em->getRepository('DynamicCrmonlineconnectorBundle:Newsletter', $newsletterid);
+//        $soapbody = $crmclient->getSoapCreateNewsletterBody($newsletter);
+//        $serverResponse = $crmclient->sendQuery($soapheader, $soapbody);
+//
+//        //Retrieve response and update the crm record
+//        $iscrmrecord = $crmclient->isCrmRecordCreated($serverResponse);
+//
+//        if ($iscrmrecord) {
+//            return new Response('Success');
+//        } else {
+//            return FALSE;
+//        }
         
     }
     

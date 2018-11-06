@@ -7,6 +7,8 @@ use Buzz\Browser;
 use Dynamic\CrmonlineconnectorBundle\Entity\Lead;
 use Dynamic\CrmonlineconnectorBundle\Entity\Candidate;
 use Dynamic\CrmonlineconnectorBundle\Entity\Newsletter;
+use \Exception as Exception;
+
 /**
  * Description of DynamicCrmClient
  *
@@ -61,7 +63,10 @@ class DynamicCrmClient {
      * @return true on success else error
      */
     public function doOCPAuthentication() {
-
+        $this->username = $this->container->getParameter('username');
+        $this->password = $this->container->getParameter('password');
+        $this->url = $this->container->getParameter('dynamicsurl');
+        
         //Step 0 - Get URN Address and STS Endpoint dynamically from WSDL
         //Using HTTP Get Method, request for the WSDL
         $wsdl = $this->getMethod($this->url . "?wsdl");
@@ -79,12 +84,26 @@ class DynamicCrmClient {
         //Request for the security token
         $securityTokenResponse = $this->buzz->post($stsEndPoint, array(), $securityTokenSoapTemplate)->getContent();
         
-        //Get Security tokens and key identifiers
+        //Get Security tokens and key identifiers        
+        try {
+            $this->Securitytokens($securityTokenResponse);
+        } catch (Exception $e){
+            echo 'Ensure your proper credentials: ',  $e->getMessage(), "\n";
+        } 
+    }
+   
+   /**
+     * This function gets Security tokens and key identifiers
+     * 
+     * @param type $securityTokenResponse
+     * @return type 
+     */ 
+   public function Securitytokens($securityTokenResponse){   
         $this->securityToken0 = $this->getSecurityToken0($securityTokenResponse);
         $this->securityToken1 = $this->getSecurityToken1($securityTokenResponse);
         $this->keyIdentifier = $this->getKeyIdentifier($securityTokenResponse);
     }
-    
+   
     /**
      * This function gets and returns the STS EndPoint method
      * 
